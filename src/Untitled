@@ -1,0 +1,106 @@
+import { useParams } from "react-router-dom"
+import { useProductDetail } from "../hooks/useProductDetail"
+import { useState, useEffect } from "react"
+import { useCart } from "../context/CartContext"
+
+export default function ProductDetail() {
+    const { id } = useParams()
+    const { product, loading, error } = useProductDetail(id)
+
+    const [selectedColor, setSelectedColor] = useState(null)
+    const [selectedStorage, setSelectedStorage] = useState(null)
+
+    const { addToCart } = useCart()
+
+    useEffect(() => {
+        if (product) {
+            setSelectedColor(product.colorOptions[0])
+            setSelectedStorage(product.storageOptions[0])
+        }
+    }, [product])
+
+    if (loading) return <p>Loading...</p>
+    if (error) return <p>Error loading product</p>
+
+    const image =
+        selectedColor?.imageUrl || product.colorOptions?.[0]?.imageUrl
+
+    const finalPrice = selectedStorage?.price || product.basePrice
+
+    return (
+        <div style={{ padding: "20px" }}>
+            <h1>{product.name}</h1>
+            <h2>{product.brand}</h2>
+
+            <img src={image} alt={product.name} width="300" />
+
+            <h3>Colors</h3>
+            <div
+                style={{
+                    display: "flex",
+                    gap: "40px",
+                    padding: "40px",
+                    maxWidth: "1200px",
+                    margin: "0 auto",
+                }}
+            >                {product.colorOptions.map((color) => (
+                <button
+                    key={color.name}
+                    aria-label={color.name}
+                    onClick={() => setSelectedColor(color)}
+                    style={{
+                        backgroundColor: color.hexCode,
+                        width: "30px",
+                        height: "30px",
+                        border:
+                            selectedColor?.name === color.name
+                                ? "2px solid black"
+                                : "1px solid #ccc",
+                        cursor: "pointer",
+                    }}
+                />
+            ))}
+            </div>
+
+            <h3>Storage</h3>
+            <div style={{ display: "flex", gap: "10px" }}>
+                {product.storageOptions.map((storage) => (
+                    <button
+                        key={storage.capacity}
+                        onClick={() => setSelectedStorage(storage)}
+                        style={{
+                            padding: "10px",
+                            border:
+                                selectedStorage?.capacity === storage.capacity
+                                    ? "2px solid black"
+                                    : "1px solid #ccc",
+                            cursor: "pointer",
+                        }}
+                    >
+                        {storage.capacity}
+                    </button>
+                ))}
+            </div>
+
+            <strong>{finalPrice}€</strong>
+
+            <button
+                onClick={() =>
+                    addToCart({
+                        id: product.id,
+                        name: product.name,
+                        brand: product.brand,
+                        price: finalPrice,
+                        selectedColor,
+                        selectedStorage,
+                    })
+                }
+                disabled={!selectedColor || !selectedStorage}
+            >
+                Add to Cart
+            </button>
+
+            <p>{product.description}</p>
+        </div>
+    )
+}
