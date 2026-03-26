@@ -10,35 +10,28 @@ export default function Home() {
   if (error) return <p>Error loading products</p>
 
   const filteredProducts = products
-  .filter((p) =>
-    (p.name + p.brand).toLowerCase().includes(search.toLowerCase())
-  )
-  .slice(0, 20)
+    .filter((p) =>
+      (p.name + p.brand).toLowerCase().includes(search.toLowerCase())
+    )
+    .slice(0, 20)
 
-  // Aqui podríamos paginarlos pero en el enunciado me pides mostrar solo 20 resultados.
+  // Aqui podríamos paginarlos pero en el enunciado me pide mostrar solo 20 resultados.
 
   return (
-    <div style={{ padding: "40px", maxWidth: "1200px", margin: "0 auto" }}>
-
+    <div className="max-w-[1600px] mx-auto px-6 md:px-8 lg:px-12">
       <input
         type="text"
         placeholder="Search for a smartphone..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="search-input"
-      />
+        className="w-full pb-[5px] mb-6 md:mb-8 border-0 border-b border-[#222] outline-none text-[13px] font-light bg-transparent text-[#111] placeholder:text-[#aaa] focus:border-black focus:ring-0 appearance-none" />
 
-      <p style={{ marginBottom: "20px", fontSize: "12px", color: "#666" }}>
+      <p className="text-[11px] mt-4 mb-6 md:mt-6 text-[#010101] ">
         {filteredProducts.length} RESULTS
       </p>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
-        }}
-      >
-        {filteredProducts.map((product) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                {filteredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
