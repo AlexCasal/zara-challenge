@@ -14,12 +14,14 @@ Pequeña aplicación SPA desarrollada con React y Tailwind como prueba técnica.
 * Componentes principales
 * Primeros estilos aplicados
 
-## ▶️ Ejecutar el proyecto
+## 🚀 Run with Docker
 
-```bash
-npm install
-npm run dev
-```
+### Development
+docker compose up
+
+### Production
+docker build -t zara-challenge .
+docker run -p 3000:3000 zara-challenge
 
 ## 📝 Notas
 El proyecto se encuentra en proceso de migración a Tailwind CSS.
