@@ -18,7 +18,7 @@ export default function Home() {
   // Aqui podríamos paginarlos pero en el enunciado me pide mostrar solo 20 resultados.
 
   return (
-    <div className="max-w-[1600px] mx-auto px-6 md:px-8 lg:px-12">
+    <div className="max-w-[1800px] mx-auto my-12 px-6 md:px-8 lg:px-12">
       <input
         type="text"
         placeholder="Search for a smartphone..."
