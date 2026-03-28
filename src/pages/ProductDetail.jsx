@@ -45,13 +45,14 @@ export default function ProductDetail() {
 
         return () => el.removeEventListener("scroll", handleScroll)
     }, [])
-    //Filtramos prodctos similares 
-    const similarProducts = products
-        .filter(p => p.brand === product.brand && p.id !== product.id)
-        .slice(0, 5)
-
+    //Filtramos prodctos similares
     if (loading) return <p>Loading...</p>
     if (error) return <p>Error loading product</p>
+    if (!product) return null
+
+    const similarProducts = (products ?? [])
+    .filter(p => p.brand === product.brand && p.id !== product.id)
+    .slice(0, 5)
 
     const image =
         selectedColor?.imageUrl || product?.colorOptions?.[0]?.imageUrl
@@ -59,7 +60,7 @@ export default function ProductDetail() {
     const finalPrice = selectedStorage?.price || product.basePrice
 
     const minPrice = Math.min(
-        ...product.storageOptions.map((s) => s.price)
+        ...(product.storageOptions ?? []).map((s) => s.price)
     )
 
     const hasSelectedStorage = !!selectedStorage
@@ -218,7 +219,7 @@ export default function ProductDetail() {
                             </span>
                         </div>
 
-                        {Object.entries(product.specs).map(([key, value]) => (
+                        {Object.entries(product.specs || {}).map(([key, value]) => (
                             <div
                                 key={key}
                                 className="grid grid-cols-[120px_1fr] md:grid-cols-[250px_1fr] py-4 border-b border-black"
