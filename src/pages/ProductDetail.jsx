@@ -160,19 +160,21 @@ export default function ProductDetail() {
                                 </div>
 
                                 {/* BUTTON */}
+                                {/* CartID ---> Como medida de seguridad para evitar confilctos con los duplicados */}
                                 <button
                                     className="w-full bg-black text-white py-3 text-sm mt-6 disabled:bg-gray-100 uppercase"
                                     disabled={!selectedColor || !selectedStorage}
                                     onClick={() =>
                                         addToCart({
-                                            id: product.id,
-                                            name: product.name,
-                                            brand: product.brand,
-                                            price: finalPrice,
-                                            selectedColor,
-                                            selectedStorage,
+                                          id: product.id,
+                                          name: product.name,
+                                          brand: product.brand,
+                                          price: finalPrice,
+                                          selectedColor,
+                                          selectedStorage,
+                                          cartId: crypto.randomUUID() 
                                         })
-                                    }
+                                      }
                                 >
                                     Añadir
                                 </button>
