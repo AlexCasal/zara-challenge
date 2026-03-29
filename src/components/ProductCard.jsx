@@ -2,12 +2,6 @@ import { Link } from "react-router-dom"
 
 export default function ProductCard({ product }) {
 
-  const minPrice = product.storageOptions
-  ? Math.min(...product.storageOptions.map(s => s.price))
-  : product.basePrice
-
-
-
   return (
     <Link to={`/product/${product.id}`}>
       <div className="h-[320px] flex flex-col justify-between border border-[#b4adad] bg-white relative overflow-hidden group">
@@ -27,7 +21,7 @@ export default function ProductCard({ product }) {
           {/* TOP ROW */}
           <div className="flex justify-between items-center text-[10px] text-[#999] group-hover:text-white">
             <span>{product.brand.toUpperCase()}</span>
-            <span>{minPrice.toFixed(2)} EUR</span>
+            <span>{product.basePrice} EUR</span>
           </div>
 
           {/* NAME */}
