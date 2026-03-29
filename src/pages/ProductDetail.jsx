@@ -19,6 +19,20 @@ export default function ProductDetail() {
 
     const { addToCart } = useCart()
 
+    const handleAddToCart = () => {
+        addToCart({
+            id: product.id,
+            name: product.name,
+            brand: product.brand,
+            price: finalPrice,
+            selectedColor,
+            selectedStorage,
+            cartId: crypto.randomUUID()
+        })
+
+        navigate("/cart")
+    }
+
     useEffect(() => {
         if (product) {
             setSelectedColor(product.colorOptions[0])
@@ -51,8 +65,8 @@ export default function ProductDetail() {
     if (!product) return null
 
     const similarProducts = (products ?? [])
-    .filter(p => p.brand === product.brand && p.id !== product.id)
-    .slice(0, 5)
+        .filter(p => p.brand === product.brand && p.id !== product.id)
+        .slice(0, 5)
 
     const image =
         selectedColor?.imageUrl || product?.colorOptions?.[0]?.imageUrl
@@ -160,21 +174,10 @@ export default function ProductDetail() {
                                 </div>
 
                                 {/* BUTTON */}
-                                {/* CartID ---> Como medida de seguridad para evitar confilctos con los duplicados */}
                                 <button
                                     className="w-full bg-black text-white py-3 text-sm mt-6 disabled:bg-gray-100 uppercase"
                                     disabled={!selectedColor || !selectedStorage}
-                                    onClick={() =>
-                                        addToCart({
-                                          id: product.id,
-                                          name: product.name,
-                                          brand: product.brand,
-                                          price: finalPrice,
-                                          selectedColor,
-                                          selectedStorage,
-                                          cartId: crypto.randomUUID() 
-                                        })
-                                      }
+                                    onClick={handleAddToCart}
                                 >
                                     Añadir
                                 </button>
