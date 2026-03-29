@@ -171,6 +171,6 @@ Se han implementado tests unitarios con Vitest y Testing Library para validar:
 
 ## 📌 Mejoras futuras
 
-* Mejora de accesibilidad avanzada
-* Optimización de rendimiento
-* Paginación o lazy loading
+* Refinamiento de la interfaz de usuario (espaciados, tamaños de imágenes y consistencia visual)
+* Implementación de un flujo completo de checkout (página de pago)
+* Paginación o infinite scroll en el listado de productos
