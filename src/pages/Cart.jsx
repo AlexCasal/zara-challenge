@@ -30,7 +30,7 @@ export default function Cart() {
         <div className="flex flex-col gap-12">
 
           {cart.map((item, index) => (
-            <div key={index} className="flex items-start gap-14 md:gap-20">
+            <div key={item.cartId} className="flex items-start gap-14 md:gap-20">
 
               {/* IMAGE */}
               <img
@@ -55,7 +55,7 @@ export default function Cart() {
                 </p>
 
                 <button
-                  onClick={() => removeFromCart(index)}
+                  onClick={() => removeFromCart(item.cartId)}
                   className="text-red-500 text-xs mt-4"
                 >
                   Eliminar
